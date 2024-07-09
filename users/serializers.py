@@ -14,3 +14,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+    
+
+class EmailVerificationSerializer(serializers.Serializer):
+    token = serializers.CharField(max_length=666)

@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,8 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--o6-l79qznbfp_lsi*=&gcui-a1dp(b+#d(-l2o#@2_x^63oxm'
+# SECRET_KEY = 'django-insecure--o6-l79qznbfp_lsi*=&gcui-a1dp(b+#d(-l2o#@2_x^63oxm'
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -139,3 +142,16 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+REST_FRAMWORK = {
+    'DEFAULT_AUTHENTICATON_CLASSES': {
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    }   
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
